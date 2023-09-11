@@ -1,9 +1,13 @@
+---
+title: My first post
+date: "2023-09-08T23:46:37.121Z"
+---
+
 # why did I start
 
-Let me preface this section. If i want to get into cloud engineering job I need to know linux. nearly every system in the world is connected to runn ing some kind of linux distro. Bash is the language help me script in all those situations and previously in my last job great for automation. this is me refreshing some of the things because i've been using mac-os zsh customizations. I hope to get comfortable with vim eventually. That is the goal for today using the microsoft resource given 
+Let me preface this section. If i want to get into cloud engineering job I need to know linux. nearly every system in the world is connected to runn ing some kind of linux distro. Bash is the language help me script in all those situations and previously in my last job great for automation. this is me refreshing some of the things because i've been using mac-os zsh customizations. I hope to get comfortable with vim eventually. That is the goal for today using the microsoft resource given. 
 
 https://www.youtube.com/playlist?list=PLlrxD0HtieHh9ZhrnEbZKhzk0cetzuX7l
-
 
 
 
@@ -247,5 +251,127 @@ Once you make a script you can move it to a directory in your $PATH variable
 3.  Now I can paste the script in the directory and run it directly as a command in my terminal 
 > $ cp hello_world /home/vscode/.local/bin
 > $ hello_world 
- Hello World!
+> Hello World!
 
+# VARIABLES IN BASH
+
+> hello_message='Hello Worlds!'
+> echo $hello_message
+
+if you want to assign the output of a command to a variable, you can in bash
+
+> current_dir=$(pwd)
+> echo $current_dir
+
+
+## Single vs double quotes
+
+To get the output with varible values shown always use double quotes
+>echo "$hello_message and $current_dir"
+
+results:Hello Worlds! and /workspaces/bash-for-beginners/what-is-a-bash-script
+
+if you want the variable names to be printed and not computed use single quotes
+>echo '$hello_message and $current_dir'
+
+results:$hello_message and $current_dir
+
+
+## Constants
+immutable values that cannot be changed after being declared
+> readonly variable_wont_change="blue"
+
+
+## Doing maths
+Arithmetic expansion allows the evaluation of an arithmetic expression and the substitution of the result. The format for arithmetic expansion is:
+
+>$(( expression ))
+>$((number % 2)) -eq 0
+
+# Conditional statement
+if statements work in the format below with if,then,else but needs to be closed with fi 
+
+>if [ $((number % 2)) -eq 0 ];
+>then
+>echo "The number $number is even!";
+>else
+>echo "The number $number is odd!"
+>fi
+
+difference in equality checkers:
+>`=` and `==` are for string comparisons  
+>`-eq` is for numeric comparisons
+>**_-ne_** for not equal numbers
+>**_-gt** for greater than
+>
+
+## Command: read
+use the command to take input. example below has -p flag for prompt and then the variable to store the input.
+
+>read -p "Enter a number: " n
+
+# case statements
+
+start with case (variable) in 
+and then end with case spelt backwards
+
+>case $n in
+> ???)
+>echo "3 characters found";;
+>1|2)
+>echo "One or two found";;
+>aa)
+>echo "double aa found";;
+>\*.txt)
+>echo "a text file found";;
+>*)
+>echo "Other";;
+>esac
+
+
+# Functions
+
+functions and variables defined before being called like c.
+looks like normal format:
+> myFunction () { ...enter code...}
+
+and then call your function with a parameter like this:
+> myFunction $number 
+
+the params are called inside the function as $1 $2 $3.... for however many params you send.
+$0 is reserved for the function's name when defined in the terminal. When defined in a bash script, **`$0`** returns the script's name and location.
+example below will print out whatever value of $number as $1
+> myFunction () { 
+> echo $1
+> }
+
+if you need write variables in a function and you don't want global scope. declare variables as:
+> local myNum=5
+
+
+# Loops
+
+while loops format, remember to end with done:
+
+you can also use break keyword in the loop to stop iterating
+
+> while [\[ ...conditional statement]];  do
+> 	write a function here
+> done
+
+until loops same thing until condition is true unlike while
+
+for loops(traditional like c#)
+
+>services=("loadbalancer" "virtualmachine" "storage")
+>for i in "${services[@]}"
+>do
+>echo $i
+>done
+
+
+for loops (newer like c)
+
+> for (( i=0; i<5; i=i+1 )); do
+> echo "The counter is at: $i"
+> done
